@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load plotly_dash %}
+
+{% block title %} Example Dash {% endblock %}
+{% block content %}
+  <div class="{% plotly_class name="SimpleExample" %}">
+    {% plotly_app name="SimpleExample" %}
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      {{ plotly_graph | safe }}
+    </div>
+    <div class="col-md-6">
+      {{ districts_plotly | safe }}
+    </div>
+  </div>
+  <div id="app"></div>
+
+
+  <script>
+    new Vue({
+        delimiters: ["[[", "]]"],
+        el: "#app",
+        data: {
+            problems: [],
+            loading: false,
+            message: "Problemler:"
+        }
+    })
+  </script>
+{% endblock %}

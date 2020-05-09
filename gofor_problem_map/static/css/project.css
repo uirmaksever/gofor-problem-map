@@ -1,0 +1,19 @@
+/* These styles are generated from project.scss. */
+
+.alert-debug {
+  color: black;
+  background-color: white;
+  border-color: #d6e9c6;
+}
+
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+
+/* SELECT2 */
+span.select2-container {
+  width: 100%!important;
+  height: calc(1.5em + .75rem + 2px);
+}

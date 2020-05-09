@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load leaflet_tags %}
+{% load django_tables2 %}
+{% load geojson_tags %}
+
+{% block content %}
+  <!-- IMPORTS -->
+  <div>
+    {% leaflet_js %}
+    {% leaflet_css %}
+  </div>
+  {% leaflet_map "problem_multiple" callback="main_map_init" %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>{{ object }}</h3>
+        {% render_table problems_table %}
+      </div>
+    </div>
+  </div>
+
+    <script type="text/javascript">
+      function main_map_init (map, options) {
+          var collection = {{ problems|geojsonfeature:"name,pk,geom:location"|safe }};
+          console.log(collection);
+          collection.features.forEach((feature) => {
+              var layer = L.geoJSON(feature)
+                  .bindPopup('<a href=/m/problem/' + String(feature.properties.pk) + '>' + feature.properties.name + '</a>')
+                  .addTo(map);
+          });
+          {#var layer = L.geoJSON({{ problems|geojsonfeature:"geom:location, name"|safe }})#}
+          {#    .bindPopup("{{ name }}")#}
+          {#    .addTo(map);#}
+      };
+    </script>
+{% endblock %}
+

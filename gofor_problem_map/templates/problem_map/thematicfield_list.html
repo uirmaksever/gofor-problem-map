@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Tematik Alanlar</h3>
+      <div id="thematic_accordion">
+        <div class="panel list-group">
+          {% for object in object_list %}
+            <li class="list-group-item list-group-item-light" data-parent="#thematic_accordion" data-toggle="collapse" href="#thematic_{{ object.pk }}">
+              <a href={% url "problem_map:thematic-detail" object.pk %}>{{ object.name }}</a>
+              <div class="dropdown-toggle float-right"></div>
+            </li>
+            <div class="collapse " id="thematic_{{ object.pk }}">
+              <ul class="list-group">
+              {% for problem_type in object.problemtype_set.all %}
+                <li class="list-group-item list-group-item-secondary rounded-0 pl-5">
+                  <a href="{% url "problem_map:problemtype-detail" problem_type.pk %}">{{ problem_type.name }}</a>
+                </li>
+              {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

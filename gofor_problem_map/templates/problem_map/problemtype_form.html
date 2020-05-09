@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div>
+      </div>
+      <h3>Problem Çeşidi Öner</h3>
+        <form method="POST" class="form">
+          {% csrf_token %}
+          {% bootstrap_field form.name %}
+          {% bootstrap_field form.thematic_field %}
+
+          {% buttons %}
+            <button type="submit" class="btn btn-outline-primary">Gönder</button>
+          {% endbuttons %}
+        </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+  {{ form.media.js }}
+{% endblock %}

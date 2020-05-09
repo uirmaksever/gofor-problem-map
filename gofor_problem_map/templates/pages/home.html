@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load leaflet_tags %}
+
+{% block content %}
+{#  {% leaflet_map "problem_map" loadevent="load" creatediv=False %}#}
+
+  <div id="app" class="row">
+    <div id="loading" v-if="this.loading == true" class="position-fixed d-flex justify-content-center align-items-center" style="z-index: 1000;
+                                        height: 100%;
+                                        width: 100%;
+                                        background: rgba(255, 255, 255, 0.8)">
+      <div class="position-fixed ball-loader">
+        Loading...
+      </div>
+    </div>
+    <div class="row" style="width: 100%">
+      <div class="col-md-9 pl-0">
+        <div id="problem_map" style="min-height: 600px" class="border"></div>
+      </div>
+      <div class="col-md-3 pr-0">
+        <div class="row my-2">
+          <div class="col">
+            <a href="{% url "problem_map:problem-create" %}" class="btn btn-outline-success d-block">Yeni Problem Ekle</a>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col">
+            <div class="card w-50">
+              <div class="card-body">
+                <div>Problem Sayısı</div>
+                <div class="h4">
+                  ${ problems.length }$
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col">
+            <div class="form-group">
+              <label for="thematic_field_filter">Tematik Alan</label>
+              <select name="thematic_field_filter" v-model="thematic_field" id="thematic_field_filter" v-on:change="thematic_field_change">
+              <option v-bind:value="{id: 'all'}">Hepsi</option>
+                <option v-for="thematic_field in thematic_fields" v-bind:value="thematic_field">
+                  ${ thematic_field.name }$
+                </option>
+
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="overflow-auto" style="height: 500px;" id="problems_list">
+
+          <div class="card-group flex-column border border-radius">
+            <div class="card border-top-0 border-left-0 border-right-0 border-bottom" v-for="problem in problems" :key="problem.pk">
+              <div class="card-body" @mouseover="problem_hover_on(problem)" @mouseleave="problem_hover_off(problem)" v-bind:class="{'bg-light': (current_hover_problem_pk === problem.pk)}">
+                <div class="d-flex">
+                  <div class="flex-column">
+                    <div class="flex-row">
+                      <div class="card-title flex-start">
+                        <a v-bind:href="'/m/problem/' + problem.pk">[${ problem.pk }$] ${ problem.name }$</a>
+                      </div>
+                      <div class="icons flex-end"></div>
+                    </div>
+                    <div class="flex-row">
+                      <div class="d-start">
+                        <span class="badge badge-success mx-1" v-for="thematic in problem.thematic_field">
+                          <a class="text-light" v-bind:href="'/m/thematic/' + thematic.id">${ thematic.name }$</a>
+                        </span>
+                      </div>
+                      <div class="d-end text-muted">
+                        <div>
+                          ${ problem.created_at }$
+                        </div>
+                        <div>${ problem.related_district }$</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+  {#        ${ problems }$#}
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    new Vue({
+        delimiters: ['${', '}$'],
+        el: '#app',
+        data: {
+            current_hover_problem_pk: null,
+            message: 'Hellooo',
+            problems: [],
+            thematic_fields: [],
+            thematic_field: null,
+            map: null,
+            clusterMarkers: [],
+            loading: true,
+            layers: [
+                {
+                    id: 0,
+                    name: "Problems",
+                    features: []
+                }
+            ],
+        },
+        mounted () {
+            axios
+                .get('/m/api/problems')
+                .then(response => {
+                    this.problems = response.data;
+                    this.layers[0].features = [];
+                    this.initLeafletData();
+                    this.initLayers();
+                    this.initClusterMarkers();
+                    this.loading = false;
+                }),
+              axios.get('/m/api/thematic_fields')
+                  .then(response => {
+                     this.thematic_fields = response.data;
+                  }),
+            this.initMap(),
+            this.initLayers(),
+            this.initClusterMarkers()
+
+        },
+        methods: {
+            clearFeatures() {
+              {#First, these removes all existing markers#}
+              {# For some reason, even if you delete the features, markers remain #}
+              this.layers[0].features.forEach(marker => {
+                  marker.leafletObject.remove();
+              });
+              {# After that, clean the features #}
+              this.layers[0].features = [];
+              {#Clear clusters#}
+              this.clusterMarkers.clearLayers(this.map);
+              {#this.map.removeLayer(this.clusterMarkers);#}
+            },
+            initLeafletData() {
+                {# Prepares data from problems to markers type. Transferred it to a function since it is called in two places #}
+
+                this.problems.forEach(item => {
+                    let dict = new Object();
+                    dict = {"pk": item.pk, "location": item.location,"name": item.name};
+                    item = dict;
+                    this.layers[0].features.push(dict);
+                });
+            },
+            thematic_field_change: function () {
+                this.loading = true;
+                console.log(this.thematic_field.id);
+                selected_thematic_field = this.thematic_field.id;
+                axios
+                    .get('http://localhost:8000/m/api/problems/?thematic_field='+String(selected_thematic_field))
+                    .then(response => {
+                        this.problems = response.data;
+                        {# First, clear markers and features #}
+                        this.clearFeatures();
+                        {# Afterwards, fire up the features based on existing this.problems #}
+                        console.log(this.map);
+                        {#this.clusterMarkers.removeLayers();#}
+                        this.initLeafletData();
+                        this.initLayers();
+                        this.initClusterMarkers();
+                        this.loading = false;
+                    })
+            },
+            initMap() {
+                this.map = L.map("problem_map").setView([39.41, 35.86], 5.5);
+                this.tileLayer = L.tileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png", {});
+                this.tileLayer.addTo(this.map);
+                L.control.locate({"icon": "fas fa-crosshairs"}).addTo(this.map);
+
+            },
+            initLayers() {
+                this.layers.forEach((layer) => {
+                    {#layer.features.filter(feature => feature.type === 'Point')#}
+                    const markerFeatures = layer.features;
+                    markerFeatures.forEach((feature) => {
+                        feature.leafletObject = L.marker(L.GeoJSON.coordsToLatLng(feature.location.coordinates), {riseOnHover: true})
+                            .bindPopup("<a href='/m/problem/" + feature.pk + "'>" + feature.name + "</a>")
+                            .on("mouseover", function (e) {
+                                this.openPopup();
+                            });
+                        {# If you want to disable/enable single markers, deal with comment here #}
+                        {#feature.leafletObject.addTo(this.map);#}
+                    });
+
+
+                });
+
+            },
+            initClusterMarkers() {
+                this.clusterMarkers = L.markerClusterGroup({maxClusterRadius: 40});
+
+                this.layers[0].features.forEach((feature) => {
+                    this.clusterMarkers.addLayer(feature.leafletObject);
+                });
+                this.map.addLayer(this.clusterMarkers);
+            },
+            problem_hover_on: function (object) {
+                object.is_active = true;
+                Vue.set(object, "is_active", true);
+                this.current_hover_problem_pk = object.pk;
+                current_marker = this.layers[0].features.filter(problem => problem.pk === this.current_hover_problem_pk)[0].leafletObject;
+                current_marker.fire("mouseover");
+                this.map.doubleClickZoom._enabled = false;
+            },
+            problem_hover_off: function (object) {
+              object.is_active = false;
+              Vue.set(object, "is_active", false);
+            }
+        }
+    })
+  </script>
+
+
+
+{% endblock %}

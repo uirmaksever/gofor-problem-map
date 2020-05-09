@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load leaflet_tags %}
+
+
+{% block content %}
+{#  LEAFLET IMPORTS#}
+  <div>
+  {% leaflet_js plugins="forms, locate" %}
+  {% leaflet_css plugins="forms, locate" %}
+  </div>
+
+  <form method="POST" class="form">
+    {% csrf_token %}
+
+    <div>
+      {{ address_form.media.css }}
+      {{ form.media }}
+    </div>
+
+
+
+    {% if form.errors %}
+      <!-- Error messaging -->
+      <div id="errors">
+        <div class="alert alert-error" role="alert">
+          <p>There were some errors in the information you entered. Please correct the following:</p>
+          {{ form.non_field_errors }}
+          <ul>
+            {% for field in form %}
+              {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <!-- /Error messaging -->
+    {% endif %}
+
+
+    <div class="container my-4">
+      <h3>Problem Ekle</h3>
+    </div>
+    <div class="container px-5 py-2 mb-2 border border-primary rounded">
+      <div>
+        {% bootstrap_field form.name %}
+        {% bootstrap_field form.description %}
+        {% bootstrap_field form.occurrence_date %}
+        {% bootstrap_field form.related_problem_type %}
+        <a href="{% url "problem_map:problem-type-suggest" %}">Eklediğiniz problem listedekilerin hiçbirine benzemiyor mu? Bize öneride bulunun.</a>
+        <hr/>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="locationTabLink" data-toggle="tab" href="#locationTab" aria-controls="locationTab" aria-selected="true">
+              Konum işaretlemek istiyorum
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="addressTabLink" data-toggle="tab" href="#addressTab" aria-controls="addressTab" aria-selected="false">
+              İl/İlçe seçmek istiyorum
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="locationTabContent">
+          <div class="tab-pane fade show active border p-2 border-radius border-top-0" id="locationTab" role="tabpanel" aria-labelledby="locationTabLink">
+            <div class="row">
+              <div class="col">
+                <a id="use_custom_location" class="btn btn-outline-warning d-block">Konum seçmeme izin ver</a>
+              </div>
+              <div class="col">
+                <a class="btn btn-outline-success d-block" id="use_location">Konumumu kullan</a>
+              </div>
+            </div>
+            {% bootstrap_field form.location %}
+          </div>
+          <div class="tab-pane fade border p-2 border-radius border-top-0" id="addressTab" role="tabpanel" aria-labelledby="addressTabLink">
+            <div class="row">
+              <div class="col-md-6">
+                {% bootstrap_field address_form.province %}
+              </div>
+              <div class="col-md-6">
+                {% bootstrap_field address_form.district %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.first_name %}
+          </div>
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.last_name %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.email %}
+          </div>
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.phone_number %}
+          </div>
+        </div>
+        <div class="row">
+          {% bootstrap_field related_person_form.could_contact %}
+        </div>
+      </div>
+      {% buttons %}
+        <button type="submit" class="btn btn-outline-primary">Gönder</button>
+      {% endbuttons %}
+    </div>
+
+  </form>
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+{#  {{ address_form.media.js }}#}
+
+{% endblock %}

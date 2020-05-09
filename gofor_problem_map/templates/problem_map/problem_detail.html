@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+{% block css %}
+  {{ block.super }}
+  {% leaflet_css %}
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  {% leaflet_js %}
+
+{% endblock %}
+
+{% block content %}
+  {% leaflet_css %}
+
+  {% leaflet_map "problem_single" callback="main_map_init" %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Problem</td>
+        <td>{{ object.name }}</td>
+      </tr>
+      <tr>
+        <td>Açıklama</td>
+        <td>{{ object.description }}</td>
+      </tr>
+      <tr>
+        <td>Problem Çeşidi</td>
+        <td>{{ object.related_problem_type }}</td>
+      </tr>
+      <tr>
+        <td>Tematik Alan(lar)</td>
+        <td>
+          {% for thematic_field in object.related_problem_type.thematic_field.all %}
+            <a href="{% url "problem_map:thematic-detail" thematic_field.pk %}">{{ thematic_field }}</a>
+          {% endfor %}
+        </td>
+      </tr>
+      <tr>
+        <td>Eklenme Tarihi</td>
+        <td>{{ object.created_at }}</td>
+
+      </tr>
+      <tr>
+        <td>Problemin Gerçekleşme Tarihi</td>
+        <td>{{ object.occurrence_date }}</td>
+      </tr>
+      <tr>
+        <td>Yeri</td>
+        <td>{{ object.related_district }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <script type="text/javascript">
+    function main_map_init (map, options) {
+        var layer = L.geoJSON({{ object|geojsonfeature:"geom:location, name"|safe }})
+            .bindPopup("{{ object.name }}")
+            .addTo(map);
+        console.log(layer);
+    };
+  </script>
+{% endblock %}
