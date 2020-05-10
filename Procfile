@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn gofor_problem_map.wsgi
