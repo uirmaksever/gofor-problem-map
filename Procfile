@@ -1,1 +1,1 @@
-web: gunicorn gofor_problem_map.config.wsgi
+web: gunicorn config.wsgi:application
