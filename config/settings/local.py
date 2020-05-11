@@ -57,6 +57,7 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 # Future note to myself: For some reason once you run collectstatic (a management command), .env file is not taken into account
 # So I declared necessary environment variables in PyCharm and created a custom collectstatic, and called all those
 # envs in local settings. Since due to GDAL issue you deploy staticfiles from local and disable it in heroku
+# For your beloved mind health, use whitenoise and heroku in cookiecutter for future projects even if you won't use
 # STATIC
 # ------------------------
 
@@ -80,3 +81,9 @@ AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
 # you run `collectstatic`). For using AWS
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
+
+# Geo Libraries
+# Note: To deploy to heroku a project that requires PostGIS, you should include the buildpack "heroku-geo-buildpack"
+# written by heroku. By May 2020, the issue is still not clear. Some say geo libraries such as GEOS and GDAL, it is said
+# that those are included in default python buildpack but that is not the case. Even if you include, there are problems
+# with staticfiles
