@@ -74,7 +74,7 @@ AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 
 AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME")  # e.g. us-east-2
 
-STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
+STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
 
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
@@ -82,7 +82,7 @@ AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
 # you run `collectstatic`). For using AWS
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
-
+AWS_LOCATION = "static/"
 # Geo Libraries
 # Note: To deploy to heroku a project that requires PostGIS, you should include the buildpack "heroku-geo-buildpack"
 # written by heroku. By May 2020, the issue is still not clear. Some say geo libraries such as GEOS and GDAL, it is said
