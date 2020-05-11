@@ -89,7 +89,7 @@ STATICFILES_STORAGE = "gofor_problem_map.utils.storages.StaticRootS3Boto3Storage
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 # Static_url changed by dev
 # STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
-STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
+STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
 
 # MEDIA
 # ------------------------------------------------------------------------------
