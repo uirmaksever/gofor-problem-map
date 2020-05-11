@@ -84,9 +84,7 @@ AWS_DEFAULT_ACL = None
 AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
 # STATIC
 # ------------------------
-# Edited by dev, static changed to whitenoise
-# STATICFILES_STORAGE = "gofor_problem_map.utils.storages.StaticRootS3Boto3Storage"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "gofor_problem_map.utils.storages.StaticRootS3Boto3Storage"
 
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"

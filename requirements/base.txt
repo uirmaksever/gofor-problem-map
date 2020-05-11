@@ -192,7 +192,6 @@ virtualenv==20.0.15
 wcwidth==0.1.9
 webencodings==0.5.1
 Werkzeug==1.0.0
-whitenoise==5.0.1
 widgetsnbextension==3.5.1
 wrapt==1.11.2
 zipp==3.1.0

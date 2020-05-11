@@ -53,5 +53,30 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-# Static files for whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Copied from production by dev. GDAL/collectstatic on heroku does not play well so let's use remote static in local
+# Future note to myself: For some reason once you run collectstatic (a management command), .env file is not taken into account
+# So I declared necessary environment variables in PyCharm and created a custom collectstatic, and called all those
+# envs in local settings. Since due to GDAL issue you deploy staticfiles from local and disable it in heroku
+# STATIC
+# ------------------------
+
+# DJANGO STORAGES AWS
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
+
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+# See envs/local.env
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+
+AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME")  # e.g. us-east-2
+
+
+# Tell django-storages the domain to use to refer to static files.
+AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
+# Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
+# you run `collectstatic`). For using AWS
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
