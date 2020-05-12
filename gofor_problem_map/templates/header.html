@@ -1,23 +1,23 @@
 {% load static i18n %}
-
+{% url "problem_map:thematic-list" as thematic_list_url %}
 
     <div id="header">
-      <nav class="navbar navbar-expand-md navbar-light border-bottom">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <nav class="navbar navbar-expand-md navbar-light border-bottom bg-white">
+        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'home' %}">gofor-problem-map</a>
+        <a class="navbar-brand py-0 align-center" href="{% url 'landing' %}"><span><img src="{% static "images/logos/covid-logo.png" %}" alt="Covid Logo" style="height: 40px"></span>Covid Problem Haritası</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav w-100">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Anasayfa <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == '/map/' %} active{% endif %}" href="{% url 'map' %}">Harita</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">Hakkında</a>
+              <a class="nav-link {% if request.path == '/about/' %} active{% endif %}" href="{% url 'about' %}">Hakkında</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'problem_map:thematic-list' %}">Tematik Alanlar</a>
+              <a class="nav-link {% if request.path == thematic_list_url %} active{% endif %}" href="{{ thematic_list_url }}">Tematik Alanlar</a>
             </li>
 {#            <li class="nav-item">#}
 {#              <a class="nav-link" href="{% url "problem_map:example_dash" %}">Dashboard</a>#}

@@ -1,24 +1,34 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center h-100">
+  <section id="hero" class="d-flex align-items-center full-height">
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
+        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-1 order-lg-1" data-aos="fade-up">
           <div>
             <h1>Covid-19 Problem Haritası</h1>
             <h2>Covid-19 hepimizin hayatını etkiledi, bazılarının ise gelire, eğitime erişmesini zorlaştırdı.
             Virüs süresince genç bireylerin yaşadığı problemleri ve hak ihlallerini raporlamaya çalışıyoruz.
             Siz de virüsten etkilendiyseniz yaşadığınız problemi bizle paylaşın.</h2>
-            <a href="{% url "home" %}" class="landing-btn">Problemleri görüntüle</a>
+            <a href="{% url "map" %}" class="landing-btn my-2">Problemleri görüntüle</a>
             <a href="{% url "problem_map:problem-create" %}" class="landing-btn">Problemini paylaş</a>
           </div>
         </div>
-        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-end order-1 order-lg-2 hero-img" data-aos="fade-up">
-          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_A0Jssp.json"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-end order-2 order-lg-2" data-aos="fade-up">
+          <div class="flex-row hero-img">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_A0Jssp.json"  background="transparent"  speed="1"  style="width: 100%; height: 100%;"  loop autoplay></lottie-player>
+          </div>
+          <div class="stakeholder-logos flex-row">
+            <a href="https://www.go-for.org">
+								<img title="Go-For" src="{% static "images/logos/gofor-logo.png" %}" alt="Go-For">
+						</a>
+            <a href="http://www.avvg.org.tr/">
+              <img title="AVVG" src="{% static "images/logos/avvg-logo.png" %}" alt="AVVG">
+            </a>
+          </div>
         </div>
       </div>
     </div>

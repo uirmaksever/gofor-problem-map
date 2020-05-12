@@ -18,6 +18,13 @@ span.select2-container {
   height: calc(1.5em + .75rem + 2px);
 }
 
+/* Full height section for desktop */
+@media only screen and (min-width: 992px) {
+  .full-height {
+    max-height: calc(100vh - 57px);
+  }
+}
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -26,7 +33,6 @@ span.select2-container {
   position: relative;
   overflow: hidden;
   padding: 50px 0 50px 0;
-  min-height: calc(100vh - 57px);
 }
 
 #hero::before {
@@ -106,7 +112,7 @@ span.select2-container {
     line-height: 36px;
   }
   #hero h2 {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
     margin-bottom: 30px;
   }
@@ -121,6 +127,9 @@ span.select2-container {
   }
 }
 
+.stakeholder-logos img {
+  max-height: 100px;
+}
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -155,6 +164,15 @@ section {
 # Header
 --------------------------------------------------------------*/
 
-#header {
-  max-height: 57px;
+@media only screen and (min-width: 992px) {
+  #header {
+    max-height: 57px;
+  }
+}
+/*#header {*/
+/*  max-height: 57px;*/
+/*}*/
+
+a.navbar-brand {
+  font-size: 100%;
 }
