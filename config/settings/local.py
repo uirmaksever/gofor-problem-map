@@ -80,8 +80,8 @@ AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME")  # e.g. us-east-2
 AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
 # Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
 # you run `collectstatic`). For using AWS
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
 AWS_LOCATION = "static/"
 # Geo Libraries
 # Note: To deploy to heroku a project that requires PostGIS, you should include the buildpack "heroku-geo-buildpack"

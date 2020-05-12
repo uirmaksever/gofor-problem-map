@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center h-100">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
+          <div>
+            <h1>Covid-19 Problem Haritası</h1>
+            <h2>Covid-19 hepimizin hayatını etkiledi, bazılarının ise gelire, eğitime erişmesini zorlaştırdı.
+            Virüs süresince genç bireylerin yaşadığı problemleri ve hak ihlallerini raporlamaya çalışıyoruz.
+            Siz de virüsten etkilendiyseniz yaşadığınız problemi bizle paylaşın.</h2>
+            <a href="{% url "home" %}" class="landing-btn">Problemleri görüntüle</a>
+            <a href="{% url "problem_map:problem-create" %}" class="landing-btn">Problemini paylaş</a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-lg-flex flex-lg-column align-items-end order-1 order-lg-2 hero-img" data-aos="fade-up">
+          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_A0Jssp.json"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+{% endblock %}
