@@ -5,12 +5,29 @@ from . import models
 from django.forms.models import inlineformset_factory
 from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, Select2MultipleWidget
 from bootstrap_datepicker_plus import DatePickerInput
-
+from phonenumber_field.formfields import PhoneNumberField
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
 
 class RelatedPersonForm(forms.ModelForm):
+    first_name = forms.CharField(label="İsminiz",
+                                 widget=forms.TextInput(attrs={"placeholder": "Barış"}))
+    last_name = forms.CharField(label="Soyisminiz",
+                                widget=forms.TextInput(attrs={"placeholder": "Manço"}))
+    could_contact = forms.BooleanField(label="Sizinle iletişim kurabilir miyiz?",
+                                       help_text="""Probleminizle ilgili gelişmeleri sizle paylaşabiliriz. Bunun için iletişim
+                                                 bilgilerinizi bizle paylaşmalısınız. İsim soyisminiz ve iletişim bilgileriniz
+                                                 sitede görüntülenmeyecek, izniniz olmadan ilgili kurum ya da kişilerle
+                                                 paylaşılmayacaktır. Probleminizi anonim olarak paylaşmak isterseniz
+                                                 iletişim bilgilerinizi boş bırakabilirsiniz.""",
+                                       )
+    email = forms.EmailField(label="E-Posta adresiniz",
+                             widget=forms.EmailInput(attrs={"placeholder": "lukeskywalker@jedi.org"}))
+    phone_number = PhoneNumberField(label="Telefon numaranız",
+                                    help_text="""Telefon numaranız Türkiye içinde kullanılır bir telefon numarası olmalıdır.
+                                              Geçerli telefon numarası 5071234567, 05071234567, +905071234567 şeklinde olabilir.
+                                              """,)
 
     class Meta:
         model = models.Person
@@ -28,6 +45,7 @@ class ProblemTypeForm(forms.ModelForm):
             max_results = 100,
                           attrs = {
                 "data-minimum-input-length": 0,
+                "placeholder": "Ör: İşten çıkarıldım."
             }
         )
     )
@@ -39,12 +57,37 @@ class ProblemTypeForm(forms.ModelForm):
 
 
 class ProblemForm(forms.ModelForm):
+    name = forms.CharField(label="Problem başlığı",
+                           help_text="Probleminizi üç beş kelime ile kısaca özetleyin.",
+                           widget=forms.TextInput(attrs={"placeholder": "Ör: Ben ve çalışma arkadaşlarım işten çıkarıldık.",},
+                                                  )
+                           )
+    description = forms.CharField(max_length=None,
+                                  label="Problem detayları",
+                                  help_text="""Probleminize ilişkin detayları özetleyin. Nasıl gerçekleştiğini,
+                                    ne şekilde bir hak ihlaline uğradığınızı kısaca anlatın.""",
+                                  widget=forms.TextInput(attrs={"placeholder": """Ör: Bir AVM'de reyon görevlisi olarak çalışıyorum. Korona salgını başladıktan sonra mağaza beni ve dört arkadaşımı işten çıkarttı ancak bu işten çıkarma yasağının yürürlüğe girmesinden önceydi. Maddi zorluk yaşamamıza rağmen tazminatlarımız hala ödenmedi. Özlük haklarımız ihlal edildi.""", },
+                                                         )
+                                  )
     location = PointField(required=False,
-                          widget=CustomMapWidget)
-    occurrence_date = forms.DateField(widget=DatePickerInput(format="%d-%m-%Y"))
+                          widget=CustomMapWidget,
+                          label="Konum",
+                          help_text="""Problemin gerçekleştiği konumu haritadan işaretleyin. Problem şu an bulunduğunuz yerde
+                            gerçekleştiyse "Konumumu kullan" butonuna tıklayarak şu an bulunduğunuz yeri seçebilirsiniz.
+                            Probleminiz kesin bir konumla ilgili değilse ya da kesin bir konum paylaşmak istemiyorsanız
+                            "İl/ilçe seçmek istiyorum" seçeneğini kullanarak en az ilçe seviyesinde konum bilgisi paylaşınız.
+                             (Sadece il seçemezsiniz.)""")
+    occurrence_date = forms.DateField(widget=DatePickerInput(format="%d-%m-%Y", attrs={"placeholder": "Ör: 10-04-2020"}),
+                                      label="Problemin gerçekleştiği tarih",
+                                      help_text="Problemin gerçekeleştiği gerçek tarihi GG-AA-YYYY formatında yazın.")
     related_problem_type = forms.ModelChoiceField(
         queryset=models.ProblemType.objects.filter(is_approved=True),
         label="Problem Çeşidi",
+        help_text="""Probleminizi en iyi şekilde tanımlayan seçeneği seçin. Bu seçimi yapmanız bizim istatistikleri daha"
+                  sağlıklı tutmamızı, ilgili kurumlarla daha hızlı iletişime geçmemizi sağlayacak. Eğer yaşadığınız problem
+                  listedekilerin hiçbirine benzemiyorsa aşağıdaki linke tıklayarak bize önerebilirsiniz. Halihazırda
+                  girdiğiniz problem için problem çeşidini "Diğer" seçeneğini seçerek bizi gönderin, problem çeşidi önerinizi
+                  değerlendirdikten sonra probleminizi biz kategorileyeceğiz.""",
         required=True,
         widget=ModelSelect2Widget(
             model=models.ProblemType,
@@ -52,6 +95,7 @@ class ProblemForm(forms.ModelForm):
             max_results=100,
             attrs={
                 "data-minimum-input-length": 0,
+                "placeholder": "İşten çıkarıldım."
             }
         )
     )
@@ -69,6 +113,7 @@ class AddressForm(forms.Form):
     province = forms.ModelChoiceField(
         queryset=models.Province.objects.all(),
         label=u"İl",
+        help_text="Sadece il seçemezsiniz",
         required=False,
         widget=ModelSelect2Widget(
             model=models.Province,

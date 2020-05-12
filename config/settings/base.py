@@ -14,8 +14,7 @@ READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
-    print("Env file read.", env)
-    print(env("AWS_ACCESS_KEY_ID"), env("AWS_SECRET_ACCESS_KEY"))
+
 
 # GENERAL
 # ------------------------------------------------------------------------------
