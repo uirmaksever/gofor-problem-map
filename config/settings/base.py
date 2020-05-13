@@ -331,7 +331,9 @@ LEAFLET_CONFIG = {
     "DEFAULT_ZOOM": 5,
     "MAX_ZOOM":15,
     "MIN_ZOOM": 5,
-    "TILES": "http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
+    "TILES": "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    # Below tile was using http thus causing MixedContent error
+    # "TILES": "http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
     "NO_GLOBALS": False,
     'SPATIAL_EXTENT': (25.62,35.75,45.37,42.28),
     "PLUGINS": {

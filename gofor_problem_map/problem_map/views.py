@@ -70,7 +70,7 @@ class RelatedProblemsTable(tables.Table):
     class Meta:
         model = models.Problem
         template_name = "django_tables2/bootstrap.html"
-        fields = ("name", "related_problem_type__thematic_field", "created_at", "related_district", "description")
+        fields = ("name", "created_at", "related_district")
 
 class ThematicDetailView(DetailView):
     model = models.ThematicField

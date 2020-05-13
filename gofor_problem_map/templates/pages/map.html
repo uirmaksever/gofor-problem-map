@@ -179,7 +179,7 @@
             },
             initMap() {
                 this.map = L.map("problem_map").setView([39.41, 35.86], 5.5);
-                this.tileLayer = L.tileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png", {});
+                this.tileLayer = L.tileLayer("https://a.tile.openstreetmap.org/{z}/{x}/{y}.png", {});
                 this.tileLayer.addTo(this.map);
                 L.control.locate({"icon": "fas fa-crosshairs"}).addTo(this.map);
 
