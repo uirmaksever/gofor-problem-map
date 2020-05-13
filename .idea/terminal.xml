@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TerminalProjectOptionsProvider">
+    <envs>
+      <env key="PYTHONUNBUFFERED" value="1" />
+      <env key="DJANGO_SETTINGS_MODULE" value="config.settings.local" />
+      <env key="DJANGO_READ_DOT_ENV_FILE" value="1" />
+      <env key="AWS_ACCESS_KEY_ID" value="AKIA4JXS4GSNRN62VPMA" />
+      <env key="AWS_SECRET_ACCESS_KEY" value="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" />
+      <env key="AWS_STORAGE_BUCKET_NAME" value="gofor-problem-map" />
+      <env key="AWS_S3_REGION_NAME" value="eu-west-1" />
+      <env key="AWS_S3_CUSTOM_DOMAIN" value="gofor-problem-map.s3.amazonaws.com" />
+      <env key="DJANGO_ACCOUNT_ALLOW_REGISTRATION" value="True" />
+      <env key="AWS_DEFAULT_REGION" value="eu-west-1" />
+    </envs>
+  </component>
+</project>

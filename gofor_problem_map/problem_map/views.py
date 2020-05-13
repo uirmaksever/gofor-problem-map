@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from gofor_problem_map.dash import example_dash, plotly_offline_example, districts_plotly
 from rest_framework import viewsets
 from . import models
@@ -213,3 +213,11 @@ class ProblemCreateView(CreateView):
 
         return super(ProblemCreateView, self).post(request, *args, **kwargs)
 
+def send_test_email(request):
+    from django.core.mail import send_mail
+
+    send_mail("Subject", "text body", "covid@go-for.org",
+              ["umutirmaksever@gmail.com"])
+
+    messages.success(request=request, message="Test maili gönderildi")
+    return redirect("map")

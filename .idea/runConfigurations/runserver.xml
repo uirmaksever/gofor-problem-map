@@ -12,6 +12,8 @@
       <env name="AWS_STORAGE_BUCKET_NAME" value="gofor-problem-map" />
       <env name="AWS_S3_REGION_NAME" value="eu-west-1" />
       <env name="AWS_S3_CUSTOM_DOMAIN" value="gofor-problem-map.s3.amazonaws.com" />
+      <env name="DJANGO_EMAIL_BACKEND" value="anymail.backends.amazon_ses.EmailBackend" />
+      <env name="AWS_DEFAULT_REGION" value="eu-west-1" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
