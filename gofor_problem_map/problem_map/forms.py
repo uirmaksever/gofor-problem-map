@@ -16,6 +16,7 @@ class RelatedPersonForm(forms.ModelForm):
     last_name = forms.CharField(label="Soyisminiz",
                                 widget=forms.TextInput(attrs={"placeholder": "Manço"}))
     could_contact = forms.BooleanField(label="Sizinle iletişim kurabilir miyiz?",
+                                       required=False,
                                        help_text="""Probleminizle ilgili gelişmeleri sizle paylaşabiliriz. Bunun için iletişim
                                                  bilgilerinizi bizle paylaşmalısınız. İsim soyisminiz ve iletişim bilgileriniz
                                                  sitede görüntülenmeyecek, izniniz olmadan ilgili kurum ya da kişilerle
@@ -23,8 +24,10 @@ class RelatedPersonForm(forms.ModelForm):
                                                  iletişim bilgilerinizi boş bırakabilirsiniz.""",
                                        )
     email = forms.EmailField(label="E-Posta adresiniz",
+                             required=False,
                              widget=forms.EmailInput(attrs={"placeholder": "lukeskywalker@jedi.org"}))
     phone_number = PhoneNumberField(label="Telefon numaranız",
+                                    required=False,
                                     help_text="""Telefon numaranız Türkiye içinde kullanılır bir telefon numarası olmalıdır.
                                               Geçerli telefon numarası 5071234567, 05071234567, +905071234567 şeklinde olabilir.
                                               """,)
