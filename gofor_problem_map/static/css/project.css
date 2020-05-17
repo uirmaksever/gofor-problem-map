@@ -184,3 +184,11 @@ a.navbar-brand {
 label {
   font-weight: 700;
 }
+
+/*--------------------------------------------------------------
+# Form field modifications
+--------------------------------------------------------------*/
+.alert {
+  border-radius: 0;
+  border: none;
+}

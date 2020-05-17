@@ -11,6 +11,7 @@ from ipware import get_client_ip
 from django_filters import rest_framework as filters
 from gofor_problem_map.utils import helpers
 from django_tables2 import tables, LinkColumn
+from django.contrib.messages.views import SuccessMessageMixin
 # Create your views here.
 
 def dash_example_view(request, template_name="dash/example_dash.html", **kwargs):
@@ -98,9 +99,10 @@ class ProblemTypeDetailView(DetailView):
 class ThematicListView(ListView):
     model = models.ThematicField
 
-class ProblemTypeCreateView(CreateView):
+class ProblemTypeCreateView(SuccessMessageMixin, CreateView):
     model = models.ProblemType
     form_class = forms.ProblemTypeForm
+    success_message = "Problem çeşidi önerinizi başarıyla aldık. Gözden geçirdikten sonra listemize ekleyeceğiz. Teşekkürler!"
 
 class ProblemCreateView(CreateView):
     model = models.Problem
