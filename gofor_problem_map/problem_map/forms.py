@@ -6,6 +6,8 @@ from django.forms.models import inlineformset_factory
 from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, Select2MultipleWidget
 from bootstrap_datepicker_plus import DatePickerInput
 from phonenumber_field.formfields import PhoneNumberField
+from captcha.fields import ReCaptchaField
+
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
@@ -39,6 +41,7 @@ class RelatedPersonForm(forms.ModelForm):
 class ProblemTypeForm(forms.ModelForm):
     name = forms.CharField(label="Problem Tanımlamanız",
                            widget=forms.TextInput(attrs={"placeholder": "Ör: İşten Çıkarılma"}))
+    captcha = ReCaptchaField()
     thematic_field = forms.ModelMultipleChoiceField(
         queryset=models.ThematicField.objects.all(),
         label="Tematik Alan",
@@ -86,24 +89,25 @@ class ProblemForm(forms.ModelForm):
                                       label="Problemin gerçekleştiği tarih",
                                       help_text="Problemin gerçekeleştiği gerçek tarihi GG-AA-YYYY formatında yazın.")
     related_problem_type = forms.ModelChoiceField(
-        queryset=models.ProblemType.objects.filter(is_approved=True),
-        label="Problem Çeşidi",
-        help_text="""Probleminizi en iyi şekilde tanımlayan seçeneği seçin. Bu seçimi yapmanız bizim istatistikleri daha"
-                  sağlıklı tutmamızı, ilgili kurumlarla daha hızlı iletişime geçmemizi sağlayacak. Eğer yaşadığınız problem
-                  listedekilerin hiçbirine benzemiyorsa aşağıdaki linke tıklayarak bize önerebilirsiniz. Halihazırda
-                  girdiğiniz problem için problem çeşidini "Diğer" seçeneğini seçerek bizi gönderin, problem çeşidi önerinizi
-                  değerlendirdikten sonra probleminizi biz kategorileyeceğiz.""",
-        required=True,
-        widget=ModelSelect2Widget(
-            model=models.ProblemType,
-            search_fields=["name__icontains"],
-            max_results=100,
-            attrs={
-                "data-minimum-input-length": 0,
-                "placeholder": "İşten çıkarıldım."
-            }
+            queryset=models.ProblemType.objects.filter(is_approved=True),
+            label="Problem Çeşidi",
+            help_text="""Probleminizi en iyi şekilde tanımlayan seçeneği seçin. Bu seçimi yapmanız bizim istatistikleri daha"
+                      sağlıklı tutmamızı, ilgili kurumlarla daha hızlı iletişime geçmemizi sağlayacak. Eğer yaşadığınız problem
+                      listedekilerin hiçbirine benzemiyorsa aşağıdaki linke tıklayarak bize önerebilirsiniz. Halihazırda
+                      girdiğiniz problem için problem çeşidini "Diğer" seçeneğini seçerek bizi gönderin, problem çeşidi önerinizi
+                      değerlendirdikten sonra probleminizi biz kategorileyeceğiz.""",
+            required=True,
+            widget=ModelSelect2Widget(
+                model=models.ProblemType,
+                search_fields=["name__icontains"],
+                max_results=100,
+                attrs={
+                    "data-minimum-input-length": 0,
+                    "placeholder": "İşten çıkarıldım."
+                }
+            )
         )
-    )
+    captcha = ReCaptchaField()
 
     class Meta:
         model = models.Problem

@@ -90,7 +90,8 @@ THIRD_PARTY_APPS = [
     "django_select2",
     "phonenumber_field",
     "sslserver",
-    "bootstrap_datepicker_plus"
+    "bootstrap_datepicker_plus",
+    "captcha"
 ]
 
 LOCAL_APPS = [
@@ -366,3 +367,9 @@ PHONENUMBER_DEFAULT_REGION = "TR"
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 DATE_FORMAT = "d-m-Y"
 DATETIME_FORMAT = "d-m-Y - H:s"
+
+# RECAPTCHA SETTINGS
+RECAPTCHA_PUBLIC_KEY = '6LcwxvgUAAAAAOTB-Z_7WrROsF_uQ0064QxIz2o4'
+RECAPTCHA_PRIVATE_KEY = '6LcwxvgUAAAAAHrclHGNvxuPvvAfK_rmGtcrHuKB'
+# RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:8000'}
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'

@@ -20,22 +20,22 @@
 
 
 
-    {% if form.errors %}
-      <!-- Error messaging -->
-      <div id="errors">
-        <div class="alert alert-error" role="alert">
-          <p>There were some errors in the information you entered. Please correct the following:</p>
-          {{ form.non_field_errors }}
-          <ul>
-            {% for field in form %}
-              {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <!-- /Error messaging -->
-    {% endif %}
-
+{#    {% if form.errors %}#}
+{#      <!-- Error messaging -->#}
+{#      <div id="errors">#}
+{#        <div class="alert alert-error" role="alert">#}
+{#          <p>There were some errors in the information you entered. Please correct the following:</p>#}
+{#          {{ form.non_field_errors }}#}
+{#          <ul>#}
+{#            {% for field in form %}#}
+{#              {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}#}
+{#            {% endfor %}#}
+{#          </ul>#}
+{#        </div>#}
+{#      </div>#}
+{#      <!-- /Error messaging -->#}
+{#    {% endif %}#}
+    {% include "problem_map/partials/form_errors.html" %}
 
     <div class="container my-4">
       <h3>Problem Ekle</h3>
@@ -102,7 +102,11 @@
           </div>
         </div>
         <div class="row">
-          {% bootstrap_field related_person_form.could_contact %}
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.could_contact %}
+            {% bootstrap_field form.captcha %}
+          </div>
+
         </div>
       </div>
       {% buttons %}
@@ -115,6 +119,5 @@
 
 {% block javascript %}
   {{ block.super }}
-{#  {{ address_form.media.js }}#}
 
 {% endblock %}

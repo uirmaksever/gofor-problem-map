@@ -2,6 +2,9 @@
 {% load bootstrap4 %}
 
 {% block content %}
+
+{% include "problem_map/partials/form_errors.html" %}
+
 <div class="container">
   <div>{{ form.media }}</div>
   <div class="row">
@@ -11,7 +14,7 @@
           {% csrf_token %}
           {% bootstrap_field form.name %}
           {% bootstrap_field form.thematic_field %}
-
+          {% bootstrap_field form.captcha %}
           {% buttons %}
             <button type="submit" class="btn btn-outline-primary">Gönder</button>
           {% endbuttons %}

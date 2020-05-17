@@ -204,6 +204,9 @@ class ProblemCreateView(CreateView):
                                  Paylaştığınız için teşekkürler! Probleminiz başarıyla bize iletildi.
                                  Onaylandıktan sonra web sitesinde görüntülenecektir.
                                  """)
+        else:
+            return render(self.request, self.get_template_names(), forms_dict)
+
         return super(ProblemCreateView, self).form_valid(form)
 
 
