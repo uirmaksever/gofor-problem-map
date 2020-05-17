@@ -37,6 +37,8 @@ class RelatedPersonForm(forms.ModelForm):
         exclude = ["ip"]
 
 class ProblemTypeForm(forms.ModelForm):
+    name = forms.CharField(label="Problem Tanımlamanız",
+                           widget=forms.TextInput(attrs={"placeholder": "Ör: İşten Çıkarılma"}))
     thematic_field = forms.ModelMultipleChoiceField(
         queryset=models.ThematicField.objects.all(),
         label="Tematik Alan",
