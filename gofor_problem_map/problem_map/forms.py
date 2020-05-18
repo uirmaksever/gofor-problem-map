@@ -7,7 +7,7 @@ from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget,
 from bootstrap_datepicker_plus import DatePickerInput
 from phonenumber_field.formfields import PhoneNumberField
 from captcha.fields import ReCaptchaField
-
+from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
@@ -41,7 +41,7 @@ class RelatedPersonForm(forms.ModelForm):
 class ProblemTypeForm(forms.ModelForm):
     name = forms.CharField(label="Problem Tanımlamanız",
                            widget=forms.TextInput(attrs={"placeholder": "Ör: İşten Çıkarılma"}))
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(widget=ReCaptchaV3)
     thematic_field = forms.ModelMultipleChoiceField(
         queryset=models.ThematicField.objects.all(),
         label="Tematik Alan",
@@ -107,11 +107,10 @@ class ProblemForm(forms.ModelForm):
                 }
             )
         )
-    captcha = ReCaptchaField()
-
     class Meta:
         model = models.Problem
-        exclude = ["related_person", "is_approved", "related_district"]
+        # exclude = ["related_person", "is_approved", "related_district"]
+        fields = ["name", "description", "location", "occurrence_date", "related_problem_type"]
         widgets = {
             # "thematic_field": Select2MultipleWidget
         }

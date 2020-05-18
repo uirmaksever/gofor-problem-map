@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from gofor_problem_map.dash import example_dash, plotly_offline_example, districts_plotly
 from rest_framework import viewsets
 from . import models
 from . import forms
@@ -14,27 +13,6 @@ from django_tables2 import tables, LinkColumn
 from django.contrib.messages.views import SuccessMessageMixin
 # Create your views here.
 
-def dash_example_view(request, template_name="dash/example_dash.html", **kwargs):
-    'Example view that inserts content into the dash context passed to the dash application'
-
-    context = {}
-
-    # create some context to send over to Dash:
-    dash_context = request.session.get("django_plotly_dash", dict())
-    dash_context['django_to_dash_context'] = "I am Dash receiving context from Django"
-    request.session['django_plotly_dash'] = dash_context
-
-    # Add ofline plotly graph to context
-    context["plotly_graph"] = plotly_offline_example.scatter()
-    context["districts_plotly"] = districts_plotly.render_map()
-    return render(request, template_name=template_name, context=context)
-
-# Added as a note for districts gadm file mapping to geodjango. Have no effect
-mapping = {
-    "name": "NAME_2",
-    "province": "NAME_1",
-    "poly": "MULTIPOLYGON"
-}
 
 class ThematicFieldViewSet(viewsets.ModelViewSet):
     queryset = models.ThematicField.objects.all()

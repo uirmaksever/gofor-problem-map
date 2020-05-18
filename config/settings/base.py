@@ -75,7 +75,6 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     # Added by dev
-    "django_plotly_dash.apps.DjangoPlotlyDashConfig",
     "channels",
     "channels_redis",
     "rest_framework",
@@ -154,7 +153,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_plotly_dash.middleware.BaseMiddleware",
     # Added by dev
     'corsheaders.middleware.CorsMiddleware'
 ]
@@ -172,9 +170,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     # Added by dev
-    # For plotly
-    "django_plotly_dash.finders.DashAssetFinder",
-    "django_plotly_dash.finders.DashComponentFinder"
+
 ]
 
 # MEDIA
@@ -299,27 +295,10 @@ SOCIALACCOUNT_ADAPTER = "gofor_problem_map.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-# For plotly
-## Setting up ASGI
-ASGI_APPLICATION = "config.routing.application"
+# ASGI
+ASGI_APPLICATION = 'config.routing.application'
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.BaseChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379),],
-        }
-    }
-}
 
-PLOTLY_COMPONENTS = [
-    "dash_core_components",
-    "dash_html_components",
-    "dash_renderer",
-    "dpd_components"
-]
-
-# Plotly END
 # ------------------------------------------------------------------------------
 # django_cors_headers extension
 CORS_ORIGIN_ALLOW_ALL = True
@@ -369,7 +348,14 @@ DATE_FORMAT = "d-m-Y"
 DATETIME_FORMAT = "d-m-Y - H:s"
 
 # RECAPTCHA SETTINGS
-RECAPTCHA_PUBLIC_KEY = '6LcwxvgUAAAAAOTB-Z_7WrROsF_uQ0064QxIz2o4'
-RECAPTCHA_PRIVATE_KEY = '6LcwxvgUAAAAAHrclHGNvxuPvvAfK_rmGtcrHuKB'
+# v2
+# RECAPTCHA_PUBLIC_KEY = '6LcwxvgUAAAAAOTB-Z_7WrROsF_uQ0064QxIz2o4'
+# RECAPTCHA_PRIVATE_KEY = '6LcwxvgUAAAAAHrclHGNvxuPvvAfK_rmGtcrHuKB'
+
+RECAPTCHA_PUBLIC_KEY = "6LekKPkUAAAAANIPK1O78NmX5bmevo3t_F-Vav65"
+RECAPTCHA_PRIVATE_KEY = "6LekKPkUAAAAAPZlW5SEbg45_bzLa67ZSHWZpu7L"
+RECAPTCHA_REQUIRED_SCORE = 0
+RECAPTCHA_VERIFY_REQUEST_TIMEOUT = 300
 # RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:8000'}
-RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+# RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+NOCAPTCHA = True

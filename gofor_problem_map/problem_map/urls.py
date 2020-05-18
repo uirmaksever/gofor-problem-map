@@ -1,7 +1,6 @@
 from django.urls import path, include
 from . import views
 from . import models
-from gofor_problem_map.dash import example_dash
 from rest_framework import routers
 from djgeojson.views import GeoJSONLayerView
 
@@ -12,7 +11,6 @@ router.register(r'problems', views.ProblemsViewSet)
 router.register(r'thematic_fields', views.ThematicFieldViewSet)
 
 urlpatterns = [
-    path("example/", view=views.dash_example_view, name="example_dash"),
     path("api/", include(router.urls)),
     path("data.geojson", GeoJSONLayerView.as_view(model=models.Problem, geometry_field="location", properties=("name","pk")), name="data"),
     path("create", views.ProblemCreateView.as_view(), name="problem-create"),
