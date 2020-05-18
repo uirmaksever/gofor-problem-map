@@ -39,6 +39,7 @@ defusedxml==0.6.0
 distlib==0.3.0
 Django==3.0.4
 django-allauth==0.41.0
+django-anymail==7.1.0
 django-appconf==1.0.4
 django-bootstrap-datepicker-plus==3.0.5
 django-bootstrap4==1.1.1
@@ -56,6 +57,7 @@ django-leaflet==0.26.0
 django-model-utils==4.0.0
 django-phonenumber-field==4.0.0
 django-plotly-dash==1.1.5
+django-recaptcha==2.0.6
 django-redis==4.11.0
 django-reverse-admin==2.8.3
 django-select2==7.2.3
