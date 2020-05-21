@@ -33,6 +33,8 @@
           shadowSize: [41, 41]
         });
 
+        let lc =  L.control.locate( {watch:true,"icon": "fas fa-crosshairs", locateOptions:{enableHighAccuracy: true}}).addTo(map);
+
         // Removes marker added by Leaflet Draw. Marker reached by custom added "description"
         function removeAddedLocation () {
           map.eachLayer(function (layer) {
@@ -64,18 +66,19 @@
           removeAddedLocation();
         }
 
-        let lc =  L.control.locate( {watch:true,"icon": "fas fa-crosshairs", locateOptions:{enableHighAccuracy: true}}).addTo(map);
 
         // Executes when user clicks geolocation button
         $("#use_location").click(function() {
           map.on('locationfound', onLocationFound);
-          map.locate({setView: true, watch: true, maxZoom: 15});
+          // There is the bug of infinite markers getting added by onLocationFound, so you set watch: true to false - 22.5.2020
+          map.locate({setView: true, maxZoom: 15});
           lc.start();
         });
 
         // Custom Leaflet Draw button
         $("#use_custom_location").click(function () {
            $(".leaflet-draw-draw-marker")[0].click();
+           map.stopLocate();
         });
 
         // For removing all geolocation related stuff
