@@ -163,7 +163,7 @@
                 console.log(this.thematic_field.id);
                 selected_thematic_field = this.thematic_field.id;
                 axios
-                    .get('http://localhost:8000/m/api/problems/?thematic_field='+String(selected_thematic_field))
+                    .get('/m/api/problems/?thematic_field='+String(selected_thematic_field))
                     .then(response => {
                         this.problems = response.data;
                         {# First, clear markers and features #}
