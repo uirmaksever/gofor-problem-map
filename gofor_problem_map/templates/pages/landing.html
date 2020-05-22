@@ -12,8 +12,12 @@
             <h2>Covid-19 hepimizin hayatını etkiledi, bazılarının ise gelire, eğitime erişmesini zorlaştırdı.
             Virüs süresince genç bireylerin yaşadığı problemleri ve hak ihlallerini raporlamaya çalışıyoruz.
             Siz de virüsten etkilendiyseniz yaşadığınız problemi bizle paylaşın.</h2>
-            <a href="{% url "map" %}" class="landing-btn my-2">Problemleri görüntüle</a>
-            <a href="{% url "problem_map:problem-create" %}" class="landing-btn">Problemini paylaş</a>
+            <div class="d-flex flex-column">
+              <a href="{% url "map" %}" class="landing-btn my-2">Problemleri görüntüle</a>
+              <a href="{% url "problem_map:problem-create" %}" class="landing-btn" style="background: none;
+                border: 1px solid #5777ba; color: #0f0f0f">Problemini paylaş</a>
+            </div>
+
           </div>
         </div>
         <div class="col-lg-6 d-lg-flex flex-lg-column align-items-end order-2 order-lg-2" data-aos="fade-up">
