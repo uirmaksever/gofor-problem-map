@@ -180,10 +180,20 @@ label {
   font-weight: 700;
 }
 
-/*--------------------------------------------------------------
-# Form field modifications
---------------------------------------------------------------*/
 .alert {
   border-radius: 0;
   border: none;
+}
+
+/*--------------------------------------------------------------
+# MAP PAGE
+--------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+  #problem_map {
+    min-height: 60vh!important;
+  }
+  .map_sidebar {
+    margin-top:20px!important;
+  }
 }
