@@ -67,7 +67,8 @@ DJANGO_APPS = [
     "django.contrib.admin",
     "django.forms",
     # Added by dev
-    'django.contrib.gis'
+    'django.contrib.gis',
+    'django.contrib.flatpages'
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -90,7 +91,8 @@ THIRD_PARTY_APPS = [
     "phonenumber_field",
     "sslserver",
     "bootstrap_datepicker_plus",
-    "captcha"
+    "captcha",
+    "ckeditor"
 ]
 
 LOCAL_APPS = [
@@ -154,7 +156,8 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # Added by dev
-    'corsheaders.middleware.CorsMiddleware'
+    "corsheaders.middleware.CorsMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware"
 ]
 
 # STATIC

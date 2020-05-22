@@ -1,7 +1,11 @@
 from django.contrib import admin
 from . import models
+from django.db import models as django_models
 from leaflet.admin import LeafletGeoAdminMixin
 from django_reverse_admin import ReverseModelAdmin
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
+from ckeditor.widgets import CKEditorWidget
 
 # Register your models here.
 
@@ -68,3 +72,28 @@ class ProblemAdmin(LeafletGeoAdminMixin, ReverseModelAdmin):
 admin.site.register(models.Problem, ProblemAdmin)
 admin.site.register(models.ThematicField)
 admin.site.register(models.Person)
+
+
+### FLAT PAGES
+# Define a new FlatPageAdmin
+
+class FlatPageAdmin(FlatPageAdmin):
+    fieldsets = (
+        (None, {'fields': ('url', 'title', 'content', 'sites')}),
+        ('Advanced options', {
+            'classes': ('collapse',),
+            'fields': (
+                'enable_comments',
+                'registration_required',
+                'template_name',
+            ),
+        }),
+    )
+    formfield_overrides = {
+        django_models.TextField: {"widget": CKEditorWidget},
+    }
+
+
+# Re-register FlatPageAdmin
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)
