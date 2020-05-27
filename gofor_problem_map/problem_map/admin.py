@@ -58,7 +58,7 @@ class ProblemAdmin(LeafletGeoAdminMixin, ReverseModelAdmin):
         ("is_approved", "created_at", "updated_at"),
         ("name", "description"),
         "location",
-        ("thematic_field", "related_district"),
+        ("related_district", "related_problem_type"),
     )
     list_filter = ["is_approved",
                    "related_problem_type__thematic_field",
