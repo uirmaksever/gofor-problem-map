@@ -4,7 +4,7 @@ from djgeojson.fields import PointField
 from django.urls import reverse
 from django.shortcuts import redirect
 from phonenumber_field.modelfields import PhoneNumberField
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 DEFAULT_CHAR_LENGTH = 1024
@@ -67,6 +67,7 @@ class District(gis_models.Model):
 
 class ThematicField(models.Model):
     name = models.CharField(max_length=DEFAULT_CHAR_LENGTH)
+    description = RichTextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
