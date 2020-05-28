@@ -31,8 +31,9 @@ admin.site.register(models.Province, ProvinceAdmin)
 
 class ProblemTypeAdmin(admin.ModelAdmin):
     model = models.ProblemType
-    list_display = ["pk", "name","get_thematic_fields" , "created_at", "updated_at"]
+    list_display = ["pk", "is_approved", "name","get_thematic_fields" , "created_at", "updated_at"]
     list_display_links = ["pk", "name"]
+    list_editable = ["is_approved"]
     readonly_fields = ["created_at", "updated_at"]
 
     def get_thematic_fields(self, obj):
