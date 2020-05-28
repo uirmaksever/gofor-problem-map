@@ -15,7 +15,6 @@ urlpatterns = [
     path("m/", include("gofor_problem_map.problem_map.urls", namespace="problem_map")),
     path("select2", include('django_select2.urls')),
     path("pages/", include("django.contrib.flatpages.urls"), name="flatpages"),
-    path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     path("map/", TemplateView.as_view(template_name="pages/map.html"), name="map"),
     path("", TemplateView.as_view(template_name="pages/landing.html"), name="landing"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
