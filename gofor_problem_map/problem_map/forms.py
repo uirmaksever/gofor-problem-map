@@ -8,6 +8,8 @@ from bootstrap_datepicker_plus import DatePickerInput
 from phonenumber_field.formfields import PhoneNumberField
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
+from django.utils.safestring import mark_safe
+from django.urls import reverse
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
@@ -107,6 +109,10 @@ class ProblemForm(forms.ModelForm):
                 }
             )
         )
+    privacy_policy = forms.BooleanField(label=mark_safe("""Bu formda paylaştığım kişisel verilerimin <a href="/pages/privacy_policy/">
+                                            Gizlilik Politikası</a>
+                                            uyarınca işlenmesine izin veriyorum."""),
+                                            required=True)
     class Meta:
         model = models.Problem
         # exclude = ["related_person", "is_approved", "related_district"]
