@@ -87,6 +87,10 @@ AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN")
 # Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
 # you run `collectstatic`). For using AWS
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+
 # STATICFILES_STORAGE = 'config.storage.CachedCustomStorage'
 AWS_LOCATION = "static/"
 # Geo Libraries
