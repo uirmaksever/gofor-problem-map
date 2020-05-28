@@ -24,6 +24,11 @@
       <h3>Problem Ekle</h3>
     </div>
     <div class="container py-2 mb-2 border border-primary rounded">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="my-3">Probleminizi açıklayın</h4>
+        </div>
+      </div>
       <div class="">
         {% bootstrap_field form.name %}
         {% bootstrap_field form.description %}
@@ -68,7 +73,17 @@
           </div>
         </div>
       </div>
-      <div class="">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="my-3">Siz</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            {% bootstrap_field related_person_form.could_contact %}
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-6">
             {% bootstrap_field related_person_form.first_name %}
@@ -87,7 +102,6 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            {% bootstrap_field related_person_form.could_contact %}
           </div>
 
         </div>
