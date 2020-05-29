@@ -96,7 +96,7 @@ class ProblemForm(forms.ModelForm):
             help_text="""Probleminizi en iyi şekilde tanımlayan seçeneği seçin. Bu seçimi yapmanız bizim istatistikleri daha"
                       sağlıklı tutmamızı, ilgili kurumlarla daha hızlı iletişime geçmemizi sağlayacak. Eğer yaşadığınız problem
                       listedekilerin hiçbirine benzemiyorsa aşağıdaki linke tıklayarak bize önerebilirsiniz. Halihazırda
-                      girdiğiniz problem için problem çeşidini "Diğer" seçeneğini seçerek bizi gönderin, problem çeşidi önerinizi
+                      girdiğiniz problem için problem çeşidini "Diğer" seçeneğini seçerek bize gönderin, problem çeşidi önerinizi
                       değerlendirdikten sonra probleminizi biz kategorileyeceğiz.""",
             required=True,
             widget=ModelSelect2Widget(
