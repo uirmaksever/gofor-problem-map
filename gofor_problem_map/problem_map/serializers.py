@@ -8,9 +8,9 @@ class ProblemSerializer(serializers.ModelSerializer):
     related_district = serializers.CharField(source="related_district.__str__", read_only=True)
     class Meta:
         model = models.Problem
-        fields = ("pk", "name", "description", "location", "related_problem_type", "related_person", "created_at", "related_district")
+        fields = ("pk", "name", "description", "location", "related_problem_type", "related_person", "created_at", "related_district", "is_approved")
         depth = 1
-        read_only_fields = ("pk", "name", "description", "location", "related_problem_type", "related_person", "created_at", "related_district")
+        read_only_fields = ("pk", "name", "description", "location", "related_problem_type", "related_person", "created_at", "related_district", "is_approved")
 
 
 class ThematicFieldSerializer(serializers.ModelSerializer):

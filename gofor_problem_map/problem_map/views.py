@@ -25,7 +25,7 @@ class ProblemsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Any change made above reflected here
-        queryset = self.queryset
+        queryset = models.Problem.objects.filter(is_approved=True).order_by("-created_at")
         thematic_field = self.request.query_params.get("thematic_field", None)
         if thematic_field == "all":
             queryset = queryset

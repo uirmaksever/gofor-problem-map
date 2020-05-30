@@ -72,7 +72,11 @@ class ProblemAdmin(LeafletGeoAdminMixin, ReverseModelAdmin):
 
 admin.site.register(models.Problem, ProblemAdmin)
 admin.site.register(models.ThematicField)
-admin.site.register(models.Person)
+class PersonAdmin(admin.ModelAdmin):
+    model = models.Person
+    list_display = ["pk", "first_name", "last_name","could_contact", "email", "phone_number"]
+
+admin.site.register(models.Person, PersonAdmin)
 
 
 ### FLAT PAGES

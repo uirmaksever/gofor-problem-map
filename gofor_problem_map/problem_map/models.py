@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from phonenumber_field.modelfields import PhoneNumberField
 from ckeditor.fields import RichTextField
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
 # Create your models here.
 
 DEFAULT_CHAR_LENGTH = 1024
@@ -145,3 +147,9 @@ class Problem(models.Model):
     class Meta:
         verbose_name = "Problem"
         verbose_name_plural = "Problemler"
+
+# SIGNALS
+@receiver(post_delete, sender=Problem)
+def problem_post_delete(sender, instance, *args, **kwargs):
+    print("DELETED ", instance.related_person.pk)
+    instance.related_person.delete()
