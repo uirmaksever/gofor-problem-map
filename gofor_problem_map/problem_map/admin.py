@@ -50,7 +50,7 @@ class ProblemAdmin(LeafletGeoAdminMixin, ReverseModelAdmin):
     inline_type = 'stacked'
     inline_reverse = ["related_person"]
     actions = [make_published]
-    list_display = ["pk", "is_approved", "related_person", "name", "created_at", "related_district"]
+    list_display = ["pk", "is_approved", "related_person", "name", "created_at", "related_district", "related_problem_type"]
     list_display_links = ["pk", "name"]
     list_editable = ["is_approved"]
     date_hierarchy = "created_at"

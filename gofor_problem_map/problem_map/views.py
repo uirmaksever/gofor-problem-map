@@ -58,7 +58,8 @@ class ThematicDetailView(DetailView):
         context = super(ThematicDetailView, self).get_context_data(**kwargs)
         object = self.get_object()
         print(object.pk)
-        context["problems"] = models.Problem.objects.filter(related_problem_type__thematic_field=object)
+        context["problems"] = models.Problem.objects.filter(related_problem_type__thematic_field=object,
+                                                            is_approved=True)
         context["problems_table"] = RelatedProblemsTable(data=context["problems"])
         return context
 
@@ -71,7 +72,8 @@ class ProblemTypeDetailView(DetailView):
         context = super(ProblemTypeDetailView, self).get_context_data(**kwargs)
         object = self.get_object()
         print(object.pk)
-        context["problems"] = models.Problem.objects.filter(related_problem_type=object)
+        context["problems"] = models.Problem.objects.filter(related_problem_type=object,
+                                                            is_approved=True)
         context["problems_table"] = RelatedProblemsTable(data=context["problems"])
         return context
 class ThematicListView(ListView):

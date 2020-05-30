@@ -149,6 +149,7 @@ class Problem(models.Model):
         verbose_name_plural = "Problemler"
 
 # SIGNALS
+# When problem get deleted, related person is deleted as well
 @receiver(post_delete, sender=Problem)
 def problem_post_delete(sender, instance, *args, **kwargs):
     print("DELETED ", instance.related_person.pk)
