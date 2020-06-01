@@ -13,7 +13,7 @@
         Loading...
       </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 border-right">
       <div id="problem_map" style="min-height: 600px;" class="border rounded h-100 mt-2"></div>
     </div>
     <div class="col-lg-4 map_sidebar">
@@ -38,7 +38,7 @@
         <div class="col">
           <div class="form-group">
             <label for="thematic_field_filter">Tematik Alan</label>
-            <select name="thematic_field_filter" v-model="thematic_field" id="thematic_field_filter" v-on:change="thematic_field_change">
+            <select class="form-control" name="thematic_field_filter" v-model="thematic_field" id="thematic_field_filter" v-on:change="thematic_field_change">
             <option v-bind:value="{id: 'all'}">Hepsi</option>
               <option v-for="thematic_field in thematic_fields" v-bind:value="thematic_field">
                 ${ thematic_field.name }$
@@ -75,6 +75,14 @@
                         ${ problem.created_at }$
                       </div>
                       <div>${ problem.related_district }$</div>
+                      <div class="related_thematic_fields">
+                        <a class="badge badge-secondary" v-for="related_thematic_field_pk in problem.related_problem_type.thematic_field"
+                            :key="related_thematic_field_pk" :set="related_thematic_field = get_related_thematic_fields(related_thematic_field_pk)"
+                            v-bind:href="'/m/thematic/' + related_thematic_field.id">
+                          ${ related_thematic_field.name }$
+                        </a>
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -176,6 +184,9 @@
                         this.initClusterMarkers();
                         this.loading = false;
                     })
+            },
+            get_related_thematic_fields: function (thematic_field_pk) {
+                return this.thematic_fields.filter(thematic_field => thematic_field.id === thematic_field_pk)[0];
             },
             initMap() {
                 this.map = L.map("problem_map").setView([39.41, 35.86], 5.5);

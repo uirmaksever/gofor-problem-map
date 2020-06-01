@@ -13,8 +13,12 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 class="my-3">{{ object }}</h3>
-        <div>{{ object.description|safe }}</div>
+        <div class="jumbotron my-4">
+          <h3 class="display-5">{{ object }}</h3>
+          <hr>
+          <div class="">{{ object.description|safe }}</div>
+        </div>
+
         {% render_table problems_table %}
       </div>
     </div>
