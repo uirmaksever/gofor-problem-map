@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from rest_framework import viewsets
 from . import models
 from . import forms
@@ -11,6 +12,8 @@ from django_filters import rest_framework as filters
 from gofor_problem_map.utils import helpers
 from django_tables2 import tables, LinkColumn
 from django.contrib.messages.views import SuccessMessageMixin
+from bootstrap_modal_forms.generic import BSModalCreateView
+
 # Create your views here.
 
 
@@ -76,6 +79,7 @@ class ProblemTypeDetailView(DetailView):
                                                             is_approved=True)
         context["problems_table"] = RelatedProblemsTable(data=context["problems"])
         return context
+
 class ThematicListView(ListView):
     model = models.ThematicField
 
@@ -84,10 +88,20 @@ class ProblemTypeCreateView(SuccessMessageMixin, CreateView):
     form_class = forms.ProblemTypeForm
     success_message = "Problem çeşidi önerinizi başarıyla aldık. Gözden geçirdikten sonra listemize ekleyeceğiz. Teşekkürler!"
 
-class ProblemCreateView(CreateView):
+class ProblemTypeModalCreateView(BSModalCreateView):
+    template_name = "problem_map/problemtype_modalform.html"
+    form_class = forms.ProblemTypeBSForm
+    success_message = """Teşekkürler! Problem çeşidi önerinizi başarıyla aldık. Gözden geçirdikten sonra listemize ekleyeceğiz.
+                        Lütfen probleminizin kalan detaylarını da doldurmayı unutmayın.
+                      """
+    success_url = reverse_lazy("problem_map:problem-create")
+
+class ProblemCreateView(SuccessMessageMixin, CreateView):
     model = models.Problem
     person_form_class = forms.RelatedPersonForm
     form_class = forms.ProblemForm
+    success_message = """Paylaştığınız için teşekkürler! Probleminiz başarıyla bize iletildi.
+    Onaylandıktan sonra web sitesinde görüntülenecektir."""
 
     def get_context_data(self, **kwargs):
         context = super(ProblemCreateView, self).get_context_data(**kwargs)
@@ -163,29 +177,29 @@ class ProblemCreateView(CreateView):
                 print(self.get_template_names())
                 custom_validations = False
 
-
-
-
+            # Get district of the location
+            related_district = helpers.find_district(point=form.instance.location)
+            print(related_district)
+            if related_district is not None:
+                form.instance.related_district = related_district
+            else:
+                messages.add_message(self.request, messages.ERROR,
+                                     """Haritadan seçtiğiniz konum için geçerli bir yerleşim birimi bulamadık. Lütfen
+                                     girdiğiniz konumun Türkiye içinde olduğundan emin olun ya da il/ilçe seçin.""")
+                return render(self.request, self.get_template_names(), forms_dict)
+            # Related person
             if related_person_form.is_valid():
                 # Get user's IP address
                 client_ip, is_routable = get_client_ip(self.request)
-                print(client_ip)
                 related_person_form.save(commit=False)
                 related_person_form.instance.ip = client_ip
 
                 # Finally, save related person
                 related_person_form.save()
-
-            # Get district of the location
-            related_district = helpers.find_district(point=form.instance.location)
-            form.instance.related_district = related_district
+            # Assign newly saved related person to problem instance
             form.instance.related_person = related_person_form.instance
 
-            messages.add_message(self.request, messages.SUCCESS,
-                                 """
-                                 Paylaştığınız için teşekkürler! Probleminiz başarıyla bize iletildi.
-                                 Onaylandıktan sonra web sitesinde görüntülenecektir.
-                                 """)
+
         else:
             return render(self.request, self.get_template_names(), forms_dict)
 

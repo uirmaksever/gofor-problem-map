@@ -18,6 +18,7 @@ urlpatterns = [
     path("thematic/<int:pk>", views.ThematicDetailView.as_view(), name="thematic-detail"),
     path("thematic/", views.ThematicListView.as_view(), name="thematic-list"),
     path("suggest_problem_type/", views.ProblemTypeCreateView.as_view(), name="problem-type-suggest"),
+    path("suggest_problem_type_modal/", views.ProblemTypeModalCreateView.as_view(), name="problem-type-suggest-modal"),
     path("problem_type/<int:pk>", views.ProblemTypeDetailView.as_view(), name="problemtype-detail"),
     path("send_test_email", views.send_test_email, name="send_test_email")
 

@@ -92,7 +92,8 @@ THIRD_PARTY_APPS = [
     "sslserver",
     "bootstrap_datepicker_plus",
     "captcha",
-    "ckeditor"
+    "ckeditor",
+    'bootstrap_modal_forms',
 ]
 
 LOCAL_APPS = [

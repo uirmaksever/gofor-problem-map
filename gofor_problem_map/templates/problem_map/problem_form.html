@@ -30,22 +30,34 @@
         </div>
       </div>
       <div class="">
+        {% bootstrap_field form.related_problem_type %}
+{% comment %}
+         <a href="{% url "problem_map:problem-type-suggest" %}" target="_blank">Eklediğiniz problem listedekilerin hiçbirine benzemiyor mu? Bize öneride bulunun.</a>
+{% endcomment %}
+        <button class="suggest_problem_type_modal btn btn-primary" type="button" name="button">Problem Çeşidi Öner</button>
+        <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".suggest_problem_type_modal").modalForm({
+                formURL: "{% url 'problem_map:problem-type-suggest-modal' %}"
+            });
+
+        });
+        </script>
+        <hr/>
         {% bootstrap_field form.name %}
         {% bootstrap_field form.description %}
         {% bootstrap_field form.occurrence_date %}
-        {% bootstrap_field form.related_problem_type %}
 
-        <a href="{% url "problem_map:problem-type-suggest" %}">Eklediğiniz problem listedekilerin hiçbirine benzemiyor mu? Bize öneride bulunun.</a>
-        <hr/>
         <ul class="nav nav-tabs">
           <li class="nav-item">
             <a class="nav-link active" id="locationTabLink" data-toggle="tab" href="#locationTab" aria-controls="locationTab" aria-selected="true">
-              Konum işaretlemek istiyorum
+              Konum kullan
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="addressTabLink" data-toggle="tab" href="#addressTab" aria-controls="addressTab" aria-selected="false">
-              İl/İlçe seçmek istiyorum
+              İl/İlçe seç
             </a>
           </li>
         </ul>
@@ -53,10 +65,10 @@
           <div class="tab-pane fade show active border p-2 border-radius border-top-0" id="locationTab" role="tabpanel" aria-labelledby="locationTabLink">
             <div class="row">
               <div class="col">
-                <a id="use_custom_location" class="btn btn-outline-warning d-block">Konum seçmeme izin ver</a>
+                <a id="use_custom_location" class="btn btn-outline-warning d-block">Haritadan seç</a>
               </div>
               <div class="col">
-                <a class="btn btn-outline-success d-block" id="use_location">Konumumu kullan</a>
+                <a class="btn btn-outline-success d-block" id="use_location">Güncel konum</a>
               </div>
             </div>
             {% bootstrap_field form.location %}
@@ -117,4 +129,14 @@
 {% block javascript %}
   {{ block.super }}
 
+{% endblock %}
+
+{% block modal %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
 {% endblock %}

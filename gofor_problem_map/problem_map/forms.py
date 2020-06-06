@@ -10,6 +10,7 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
 from django.utils.safestring import mark_safe
 from django.urls import reverse
+from bootstrap_modal_forms.forms import BSModalForm
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
@@ -64,7 +65,28 @@ class ProblemTypeForm(forms.ModelForm):
         model = models.ProblemType
         fields = ["name", "thematic_field"]
 
+class ProblemTypeBSForm(BSModalForm):
+    name = forms.CharField(label="Problem Tanımlamanız",
+                           widget=forms.TextInput(attrs={"placeholder": "Ör: İşten Çıkarılma"}))
+    thematic_field = forms.ModelMultipleChoiceField(
+        queryset=models.ThematicField.objects.all(),
+        label="Tematik Alan",
+        required=True,
+        widget=ModelSelect2MultipleWidget(
+            model=models.ThematicField,
+            queryset = models.ThematicField.objects.all(),
+            search_fields=["name__icontains"],
+            max_results = 100,
+                          attrs = {
+                "data-minimum-input-length": 0,
+                "placeholder": "Ör: İşten çıkarıldım."
+            }
+        )
+    )
 
+    class Meta:
+        model = models.ProblemType
+        fields = ["name", "thematic_field"]
 
 class ProblemForm(forms.ModelForm):
     name = forms.CharField(label="Problem başlığı",
