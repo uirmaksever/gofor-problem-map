@@ -94,6 +94,7 @@ THIRD_PARTY_APPS = [
     "captcha",
     "ckeditor",
     'bootstrap_modal_forms',
+    'explorer'
 ]
 
 LOCAL_APPS = [
@@ -363,3 +364,8 @@ RECAPTCHA_VERIFY_REQUEST_TIMEOUT = 300
 # RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:8000'}
 # RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 NOCAPTCHA = True
+
+
+# DJANGO-SQL-EXPLORER
+EXPLORER_CONNECTIONS = { 'Default': 'default' }
+EXPLORER_DEFAULT_CONNECTION = 'default'
