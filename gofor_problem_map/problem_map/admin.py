@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . import models
+from gofor_problem_map.problem_map import models
 from django.db import models as django_models
 from leaflet.admin import LeafletGeoAdminMixin
 from django_reverse_admin import ReverseModelAdmin

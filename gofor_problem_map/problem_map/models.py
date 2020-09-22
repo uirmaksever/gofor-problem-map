@@ -116,6 +116,10 @@ class ProblemType(models.Model):
     def get_absolute_url(self):
         return reverse("problem_map:problemtype-detail", args=[str(self.pk)])
 
+    @property
+    def all_thematic_fields(self):
+        return ", ".join([x.name for x in self.thematic_field.all()])
+
     class Meta:
         verbose_name = "Problem Çeşidi"
         verbose_name_plural = "Problem Çeşitleri"

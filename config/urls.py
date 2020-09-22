@@ -17,8 +17,8 @@ urlpatterns = [
     path("pages/", include("django.contrib.flatpages.urls"), name="flatpages"),
     path("map/", TemplateView.as_view(template_name="pages/map.html"), name="map"),
     path("", TemplateView.as_view(template_name="pages/landing.html"), name="landing"),
-    path("explorer/", include('explorer.urls'))
-
+    path("explorer/", include('explorer.urls')),
+    path('datawizard/', include('data_wizard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

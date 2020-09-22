@@ -94,13 +94,15 @@ THIRD_PARTY_APPS = [
     "captcha",
     "ckeditor",
     'bootstrap_modal_forms',
-    'explorer'
+    'explorer',
+    'data_wizard',
+    'data_wizard.sources',
 ]
 
 LOCAL_APPS = [
     "gofor_problem_map.users.apps.UsersConfig",
     # Your stuff: custom apps go here
-    "problem_map.apps.ProblemMapConfig"
+    "gofor_problem_map.problem_map.apps.ProblemMapConfig"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -369,3 +371,13 @@ NOCAPTCHA = True
 # DJANGO-SQL-EXPLORER
 EXPLORER_CONNECTIONS = { 'Default': 'default' }
 EXPLORER_DEFAULT_CONNECTION = 'default'
+
+# DJANGO-DATA-WIZARD
+# This can be omitted to use the defaults
+DATA_WIZARD = {
+    'BACKEND': 'data_wizard.backends.threading',
+    'LOADER': 'data_wizard.loaders.FileLoader',
+    'IDMAP': 'data_wizard.idmap.never',   # 'data_wizard.idmap.existing' in 2.0
+    'AUTHENTICATION': 'rest_framework.authentication.SessionAuthentication',
+    'PERMISSION': 'rest_framework.permissions.IsAdminUser',
+}

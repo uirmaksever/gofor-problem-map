@@ -1,7 +1,7 @@
 from django import forms
 from leaflet.forms.fields import PointField
 from leaflet.forms.widgets import LeafletWidget
-from . import models
+from gofor_problem_map.problem_map import models
 from django.forms.models import inlineformset_factory
 from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, Select2MultipleWidget
 from bootstrap_datepicker_plus import DatePickerInput

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from . import models
+from gofor_problem_map.problem_map import models
 # from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from djgeojson.serializers import Serializer as DJGeojsonSerializer
 

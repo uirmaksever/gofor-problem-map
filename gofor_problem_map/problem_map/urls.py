@@ -1,6 +1,6 @@
 from django.urls import path, include
-from . import views
-from . import models
+from gofor_problem_map.problem_map import views
+from gofor_problem_map.problem_map import models
 from rest_framework import routers
 from djgeojson.views import GeoJSONLayerView
 
@@ -20,6 +20,7 @@ urlpatterns = [
     path("suggest_problem_type/", views.ProblemTypeCreateView.as_view(), name="problem-type-suggest"),
     path("suggest_problem_type_modal/", views.ProblemTypeModalCreateView.as_view(), name="problem-type-suggest-modal"),
     path("problem_type/<int:pk>", views.ProblemTypeDetailView.as_view(), name="problemtype-detail"),
-    path("send_test_email", views.send_test_email, name="send_test_email")
+    path("send_test_email", views.send_test_email, name="send_test_email"),
+    path("view_queryset", views.view_queryset, name="view_queryset")
 
 ]

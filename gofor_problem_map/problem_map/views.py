@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from rest_framework import viewsets
-from . import models
-from . import forms
-from . import serializers
+from gofor_problem_map.problem_map import models
+from gofor_problem_map.problem_map import forms
+from gofor_problem_map.problem_map import serializers
 from django.views.generic import CreateView, DetailView, ListView
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 import django.contrib.messages as messages
@@ -220,3 +220,26 @@ def send_test_email(request):
 
     messages.success(request=request, message="Test maili gönderildi")
     return redirect("map")
+
+def view_queryset(request):
+    qs = models.Problem.objects.values(
+        "pk",
+        "name",
+        "description",
+        "occurrence_date",
+        "created_at",
+        "updated_at",
+        "is_approved",
+        "related_problem_type__name",
+        "related_problem_type__thematic_field__name",
+        "related_person__first_name",
+        "related_person__last_name",
+        "related_person__could_contact",
+        "related_person__email",
+        "related_person__phone_number",
+        "related_district__name_1",
+        "related_district__name_2",
+    )
+    print(qs.query)
+    context = {"qs": qs}
+    return render(request, "problem_map/view_queryset.html", context)
