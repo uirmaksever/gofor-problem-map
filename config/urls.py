@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+import gofor_problem_map.problem_map.views as problem_map_views
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
@@ -15,8 +16,9 @@ urlpatterns = [
     path("m/", include("gofor_problem_map.problem_map.urls", namespace="problem_map")),
     path("select2/", include('django_select2.urls')),
     path("pages/", include("django.contrib.flatpages.urls"), name="flatpages"),
-    path("map/", TemplateView.as_view(template_name="pages/map.html"), name="map"),
-    path("", TemplateView.as_view(template_name="pages/landing.html"), name="landing"),
+    path("", TemplateView.as_view(template_name="pages/map.html"), name="map"),
+    # path("", TemplateView.as_view(template_name="pages/landing.html"), name="landing"),
+    # ("", problem_map_views.)
     path("explorer/", include('explorer.urls')),
     path('datawizard/', include('data_wizard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
