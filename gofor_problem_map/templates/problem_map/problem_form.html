@@ -97,6 +97,18 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-md-12">
+            <strong class="text-muted">
+              Kişisel bilgilerinizi girmek zorunda değilsiniz!
+              <a href="#"
+                 data-toggle="tooltip"
+                 title="İsim soyisminiz dahil, kişisel bilgilerinizi yalnızca paylaştığınız problemle
+                 ilgili gelişmeleri paylaşmak için kullanırız. İsterseniz bu soruları boş bırakabilirsiniz.">
+                <i class="fas fa-info-circle text-muted" style="font-size: 1.rem;"></i>
+              </a>
+            </strong>
+
+          </div>
           <div class="col-md-6">
             {% bootstrap_field related_person_form.first_name %}
           </div>
@@ -128,7 +140,11 @@
 
 {% block javascript %}
   {{ block.super }}
-
+  <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  </script>
 {% endblock %}
 
 {% block modal %}
