@@ -4,22 +4,38 @@ from leaflet.forms.widgets import LeafletWidget
 from gofor_problem_map.problem_map import models
 from django.forms.models import inlineformset_factory
 from django_select2.forms import ModelSelect2Widget, ModelSelect2MultipleWidget, Select2MultipleWidget
-from bootstrap_datepicker_plus import DatePickerInput
+from bootstrap_datepicker_plus import DatePickerInput, MonthPickerInput
 from phonenumber_field.formfields import PhoneNumberField
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3, ReCaptchaV2Checkbox
 from django.utils.safestring import mark_safe
 from django.urls import reverse
 from bootstrap_modal_forms.forms import BSModalForm
+import gofor_problem_map.problem_map.choices as project_choices
+
 
 class CustomMapWidget(LeafletWidget):
     template_name = "problem_map/custom_map_widget.html"
+
 
 class RelatedPersonForm(forms.ModelForm):
     first_name = forms.CharField(label="İsminiz",
                                  widget=forms.TextInput(attrs={"placeholder": "Barış"}))
     last_name = forms.CharField(label="Soyisminiz",
                                 widget=forms.TextInput(attrs={"placeholder": "Manço"}))
+    birth_year = forms.IntegerField(widget=MonthPickerInput(format="YYYY",
+                                                         attrs={"placeholder": "Ör: 1994"},
+                                                        options={"locale": "tr",
+                                                                 "minDate": "1980",
+                                                                 "maxDate": "2005",
+                                                                 "useCurrent": False}),
+                                label="Doğum yılınız",
+                                required=False,
+                                help_text="Doğduğunuz yılı seçin.",)
+    sex = forms.ChoiceField(choices=project_choices.RELATED_PERSON_SEX_CHOICES,
+                            label="Cinsiyetiniz",
+                            required=False,
+                            help_text="Biyolojik cinsiyetinizi seçin.")
     could_contact = forms.BooleanField(label="Sizinle iletişim kurabilir miyiz?",
                                        required=False,
                                        help_text="""Probleminizle ilgili gelişmeleri sizle paylaşabiliriz. Bunun için iletişim
@@ -109,7 +125,9 @@ class ProblemForm(forms.ModelForm):
                             Probleminiz kesin bir konumla ilgili değilse ya da kesin bir konum paylaşmak istemiyorsanız
                             "İl/ilçe seçmek istiyorum" seçeneğini kullanarak en az ilçe seviyesinde konum bilgisi paylaşınız.
                              (Sadece il seçemezsiniz.)""")
-    occurrence_date = forms.DateField(widget=DatePickerInput(format="%d-%m-%Y", attrs={"placeholder": "Ör: 10-04-2020"}),
+    occurrence_date = forms.DateField(widget=DatePickerInput(format="%d-%m-%Y",
+                                                             attrs={"placeholder": "Ör: 10-04-2020"},
+                                                             options={"locale": "tr"}),
                                       label="Problemin gerçekleştiği tarih",
                                       help_text="Problemin gerçekeleştiği gerçek tarihi GG-AA-YYYY formatında yazın.")
     related_problem_type = forms.ModelChoiceField(

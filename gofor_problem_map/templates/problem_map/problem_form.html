@@ -104,7 +104,7 @@
                  data-toggle="tooltip"
                  title="İsim soyisminiz dahil, kişisel bilgilerinizi yalnızca paylaştığınız problemle
                  ilgili gelişmeleri paylaşmak için kullanırız. İsterseniz bu soruları boş bırakabilirsiniz.">
-                <i class="fas fa-info-circle text-muted" style="font-size: 1.rem;"></i>
+                <i class="fas fa-info-circle text-muted" style="font-size: 1rem;"></i>
               </a>
             </strong>
 
@@ -118,12 +118,21 @@
         </div>
         <div class="row">
           <div class="col-md-6">
+            {% bootstrap_field related_person_form.birth_year %}
+          </div>
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.sex %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             {% bootstrap_field related_person_form.email %}
           </div>
           <div class="col-md-6">
             {% bootstrap_field related_person_form.phone_number %}
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-12">
           </div>

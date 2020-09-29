@@ -94,6 +94,9 @@ class Person(models.Model):
     could_contact = models.BooleanField(verbose_name="İletişim İzni")
     email = models.EmailField(null=True, blank=True, verbose_name="E-Posta Adresi")
     phone_number = PhoneNumberField(null=True, blank=True, verbose_name="Telefon No")
+    birth_year = models.IntegerField(null=True, blank=True)
+    sex = models.CharField(null=True, blank=True,
+                           max_length=8)
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
