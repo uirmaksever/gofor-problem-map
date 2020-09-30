@@ -116,14 +116,18 @@
             {% bootstrap_field related_person_form.last_name %}
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-md-6">
             {% bootstrap_field related_person_form.birth_year %}
+            <strong class="text-muted">
+              Girilen bütün hak ihlalleri kayıt edilecek ancak sadece 18-30 yaş arası hak ihlalleri haritada görünür olacaktır.
+            </strong>
           </div>
           <div class="col-md-6">
             {% bootstrap_field related_person_form.sex %}
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-6">
             {% bootstrap_field related_person_form.email %}
