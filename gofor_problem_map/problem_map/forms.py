@@ -19,9 +19,9 @@ class CustomMapWidget(LeafletWidget):
 
 
 class RelatedPersonForm(forms.ModelForm):
-    first_name = forms.CharField(label="İsminiz",
+    first_name = forms.CharField(required=False, label="İsminiz",
                                  widget=forms.TextInput(attrs={"placeholder": "Barış"}))
-    last_name = forms.CharField(label="Soyisminiz",
+    last_name = forms.CharField(required=False, label="Soyisminiz",
                                 widget=forms.TextInput(attrs={"placeholder": "Manço"}))
     birth_year = forms.IntegerField(widget=MonthPickerInput(format="YYYY",
                                                          attrs={"placeholder": "Ör: 1994"},
@@ -30,11 +30,11 @@ class RelatedPersonForm(forms.ModelForm):
                                                                  # "maxDate": "2005",
                                                                  "useCurrent": False}),
                                 label="Doğum yılınız",
-                                required=False,
+                                required=True,
                                 help_text="Doğduğunuz yılı seçin.",)
     sex = forms.ChoiceField(choices=project_choices.RELATED_PERSON_SEX_CHOICES,
                             label="Cinsiyetiniz",
-                            required=False,
+                            required=True,
                             help_text="Biyolojik cinsiyetinizi seçin.")
     could_contact = forms.BooleanField(label="Sizinle iletişim kurabilir miyiz?",
                                        required=False,

@@ -99,21 +99,15 @@
         <div class="row">
           <div class="col-md-12">
             <strong class="text-muted">
-              Kişisel bilgilerinizi girmek zorunda değilsiniz!
+              Kişisel bilgilerinizi girmek zorunda değilsiniz, ancak araştırma amacıyla demografik bilgilerinizi kaydediyoruz.
               <a href="#"
                  data-toggle="tooltip"
                  title="İsim soyisminiz dahil, kişisel bilgilerinizi yalnızca paylaştığınız problemle
-                 ilgili gelişmeleri paylaşmak için kullanırız. İsterseniz bu soruları boş bırakabilirsiniz.">
+                 ilgili gelişmeleri paylaşmak için kullanırız ve doldurmak zorunda değilsiniz. Ancak topladığımız problemlerin
+                  araştırma amaçlarımıza faydalı nitelikte olması için yaş ve cinsiyet bilgilerinize ihtiyacımız var.">
                 <i class="fas fa-info-circle text-muted" style="font-size: 1rem;"></i>
               </a>
             </strong>
-
-          </div>
-          <div class="col-md-6">
-            {% bootstrap_field related_person_form.first_name %}
-          </div>
-          <div class="col-md-6">
-            {% bootstrap_field related_person_form.last_name %}
           </div>
         </div>
         <div class="row mb-2">
@@ -125,6 +119,15 @@
           </div>
           <div class="col-md-6">
             {% bootstrap_field related_person_form.sex %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.first_name %}
+          </div>
+          <div class="col-md-6">
+            {% bootstrap_field related_person_form.last_name %}
           </div>
         </div>
 

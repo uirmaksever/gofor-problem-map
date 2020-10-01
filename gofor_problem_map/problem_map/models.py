@@ -88,7 +88,7 @@ class ThematicField(models.Model):
 
 
 class Person(models.Model):
-    first_name = models.CharField(max_length=DEFAULT_CHAR_LENGTH, verbose_name="İsim")
+    first_name = models.CharField(null=True, blank=True, max_length=DEFAULT_CHAR_LENGTH, verbose_name="İsim")
     last_name = models.CharField(max_length=DEFAULT_CHAR_LENGTH, verbose_name="Soyisim")
     ip = models.GenericIPAddressField(null=True, blank=True, verbose_name="IP Adresi")
     could_contact = models.BooleanField(verbose_name="İletişim İzni")
