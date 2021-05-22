@@ -6,7 +6,16 @@ from rest_framework import serializers
 class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Problem
-        fields = "__all__"
+        fields = ["name",
+                  "description",
+                  "related_problem_type",
+                  "occurrence_date",
+                  "related_person__first_name",
+                  "related_person__last_name",
+                  "related_person__email",
+                  "related_person__phone_number",
+                  "related_person__sex",
+                  "related_district"]
 
     data_wizard = {
         'header_row': 0,

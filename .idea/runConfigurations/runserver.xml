@@ -14,6 +14,7 @@
       <env name="AWS_S3_CUSTOM_DOMAIN" value="gofor-problem-map.s3.amazonaws.com" />
       <env name="DJANGO_EMAIL_BACKEND" value="anymail.backends.amazon_ses.EmailBackend" />
       <env name="AWS_DEFAULT_REGION" value="eu-west-1" />
+      <env name="DATABASE_URL" value="postgis://gofor-problem-map-db.postgres.database.azure.com:5432/d4cqoa3um5npgt?user=postgres@gofor-problem-map-db&amp;password=MMIstXzMXPXEe8vJrDiki0E4Rjg7mvLFeQcIqS1bfzI=&amp;sslmode=require" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />

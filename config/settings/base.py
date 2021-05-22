@@ -97,6 +97,7 @@ THIRD_PARTY_APPS = [
     'explorer',
     'data_wizard',
     'data_wizard.sources',
+    'import_export'
 ]
 
 LOCAL_APPS = [
